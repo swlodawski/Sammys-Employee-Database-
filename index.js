@@ -115,9 +115,30 @@ function loadQuestions() {
         })
 
     function addRole() {
+        prompt([
+            {
+                name: 'title',
+                message: 'please provide a job title'
+            },
+            {
+                name: 'salary',
+                message: 'please provide an employee salary'
+            },
+            {
+                name: 'department_id',
+                message: 'please provide a department_id'
+            }
+        ]).then((response) => {
+            dbConnection.addRole(response).then((response) => {
+                console.log(`Added ${response.title}`)
+                loadQuestions()
+            })
+        })
+    }
+
+    function addEmployee() {
         
     }
-    
     }
 
     

@@ -9,33 +9,46 @@ function loadQuestions() {
     [
     {
         name: 'view all departments',
-        value: 'view departments'
+        value: 'view_departments'
     },
     {
-        name: 'view all departments',
-        value: 'view departments'
+        name: 'view all roles',
+        value: 'view_roles'
     },
     {
-        name: 'view all departments',
-        value: 'view departments'
+        name: 'view all employees',
+        value: 'view_employees'
     },
     {
-        name: 'view all departments',
-        value: 'view departments'
+        name: 'add a department',
+        value: 'add_department'
     },
     {
-        name: 'view all departments',
-        value: 'view departments'
+        name: 'add a role',
+        value: 'add_role'
     },
     {
-        name: 'view all departments',
-        value: 'view departments'
+        name: 'add an employee',
+        value: 'add_employee'
     },
     {
-        name: 'view all departments',
-        value: 'view departments'
-    }
-]   
-    }
+        name: 'update an employee role',
+        value: 'update_role'
+    },
+    {
+        name: 'quit',
+        value: 'quit'
+    },
+    ],
+    },
     ])
-}
+    .then((responses => {
+        console.log(responses);
+        const choice = responses.choice;
+        console.log(choice);
+
+        switch(choice) {
+            
+        }
+    }))
+    }

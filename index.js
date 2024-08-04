@@ -137,7 +137,33 @@ function loadQuestions() {
     }
 
     function addEmployee() {
-        
+        prompt([
+            {
+                name: 'first_name',
+                message: 'please provide a employee first_name'
+            },
+            {
+                name: 'last_name',
+                message: 'please provide an employee last_name'
+            },
+            {
+                name: 'role_id',
+                message: 'please provide a role_id'
+            },
+            {
+                name: 'manager_id',
+                message: 'please provide a manager_id'
+            }
+        ]).then((response) => {
+            dbConnection.addEmployee(response).then((response) => {
+                console.log(`Added ${response.first_name}`)
+                loadQuestions()
+            })
+        })
+    }
+
+    function quit() {
+        console.log('quit')
     }
     }
 

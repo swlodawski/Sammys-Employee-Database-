@@ -5,8 +5,8 @@ function loadQuestions() {
     prompt([
     {   type: 'list',
         name: 'choice',
-        message: 'Make a category selection'
-    [
+        message: 'Make a category selection',
+        choices: [
     {
         name: 'view all departments',
         value: 'view_departments'
@@ -85,4 +85,21 @@ function loadQuestions() {
 
     loadQuestions();
 
+    function viewDepartments() {
+        return dbConnection.findAllDepartments().then((result) => {
+            console.table(result.rows)
+        })
+    } 
+    function viewRoles() {
+        return dbConnection.findAllRoles().then((result) => {
+            console.table(result.rows)
+        })
+    }
+    function viewEmployees() {
+        return dbConnection.findAllEmployees().then((result) => {
+            console.table(result.rows)
+        })
+    }
+
+    
     

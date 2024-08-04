@@ -100,6 +100,24 @@ function loadQuestions() {
             console.table(result.rows)
         })
     }
+    function addDepartment() {
+        prompt([
+            {
+                name: 'name',
+                message: 'Create a new department',
+            }
+        ])
+        .then((response) => {
+            dbConnection.addDepartment(response).then(() => {
+                console.log(`Added ${response.name}`)
+                loadQuestions
+            })
+        })
 
+    function addRole() {
+        
+    }
     
+    }
+
     

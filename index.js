@@ -48,7 +48,41 @@ function loadQuestions() {
         console.log(choice);
 
         switch(choice) {
+            case 'view_departments':
+            viewDepartments().then(loadQuestions);
+            break;
+
+            case 'view_roles':
+            viewDepartments().then(loadQuestions);
+            break;
+
+            case 'view_employees':
+            viewDepartments().then(loadQuestions);
+            break;
+
+            case 'add_department':
+            viewDepartments().then(loadQuestions);
+            break;
+
+            case 'add_role':
+            viewDepartments().then(loadQuestions);
+            break;
+
+            case 'add_employee':
+            viewDepartments().then(loadQuestions);
+            break;
             
+            case 'update_role':
+            viewDepartments().then(loadQuestions);
+            break;
+
+            case 'quit':
+            quit();
+            break;
         }
-    }))
-    }
+    }));
+    };
+
+    loadQuestions();
+
+    

@@ -69,4 +69,4 @@ VALUES ('Liam', 'Hawthorne', 1, null),
 ('Owen', 'Thorne', 9, null),
 ('Zara', 'Kingsley', 10, 8);
 
--- SELECT * FROM department;
+-- SELECT * FROM employee;

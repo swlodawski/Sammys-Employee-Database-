@@ -1,12 +1,14 @@
-const {prompt} = require('inquirer');
+const { prompt } = require('inquirer');
 const dbConnection = require('./db/index.js');
 
 function loadQuestions() {
-    prompt([
-    {   type: 'list',
+    prompt([ 
+    {
+        type: 'list',
         name: 'choice',
-        message: 'Make a category selection',
+        message: 'Which would you like to look at',
         choices: [
+    
     {
         name: 'view all departments',
         value: 'view_departments'
@@ -36,138 +38,138 @@ function loadQuestions() {
         value: 'update_role'
     },
     {
-        name: 'quit',
+        name: 'Quit',
         value: 'quit'
     },
-    ],
-    },
-    ])
-    .then((responses => {
-        console.log(responses);
-        const choice = responses.choice;
-        console.log(choice);
+],
+},
+])
 
-        switch(choice) {
-            case 'view_departments':
-            viewDepartments().then(loadQuestions);
-            break;
+.then((responses) => {
+    console.log(responses);
+    const choice = responses.choice;
+    console.log(choice);
 
-            case 'view_roles':
-            viewDepartments().then(loadQuestions);
-            break;
+    switch(choice) {
+        case 'view_departments':
+        viewDepartments().then(loadQuestions);
+        break;
 
-            case 'view_employees':
-            viewDepartments().then(loadQuestions);
-            break;
+        case 'view_roles':
+        viewRoles().then(loadQuestions);
+        break;
 
-            case 'add_department':
-            viewDepartments();
-            break;
+        case 'view_employees':
+        viewEmployees().then(loadQuestions);
+        break;
 
-            case 'add_role':
-            viewDepartments();
-            break;
+        case 'add_department':
+        addDepartment();
+        break;
 
-            case 'add_employee':
-            viewDepartments();
-            break;
-            
-            case 'update_role':
-            viewDepartments();
-            break;
+        case 'add_role':
+        addRole();
+        break;
 
-            case 'quit':
-            quit();
-            break;
+        case 'add_employee':
+        addEmployee();
+        break;
+
+        case 'update_role':
+        updateEmployeeRole();
+        break;
+
+        case 'quit':
+        quit();
+        break;
+
+}});
+};
+
+loadQuestions()
+
+// Functions
+function viewDepartments() {
+    return dbConnection.findAllDepartments().then((result) => {
+        console.table(result.rows)
+    })
+}
+
+function viewRoles() {
+    return dbConnection.findAllRoles().then((result) => {
+        console.table(result.rows)
+    })
+}
+
+function viewEmployees() {
+    return dbConnection.findAllEmployees().then((result) => {
+        console.table(result.rows)
+    })
+}
+
+function addDepartment() {
+    prompt([
+        {
+            name: 'name',
+            message: 'What is the name of the department',
         }
-    }));
-    };
+    ]).then((response) => {
+        dbConnection.addDepartment(response).then(() => {
+            console.log(`Added ${response.name}`)
+            loadQuestions()
+    })
+    })
+}
 
-    loadQuestions();
+function addRole() {
 
-    function viewDepartments() {
-        return dbConnection.findAllDepartments().then((result) => {
-            console.table(result.rows)
-        })
-    } 
-    function viewRoles() {
-        return dbConnection.findAllRoles().then((result) => {
-            console.table(result.rows)
-        })
-    }
-    function viewEmployees() {
-        return dbConnection.findAllEmployees().then((result) => {
-            console.table(result.rows)
-        })
-    }
+    prompt([
+        {
+            name: 'title',
+            message: 'What is the title of the role',
+        },
+        {
+            name: 'salary',
+            message: 'What is the salary of the role',
+        },
+        {
+            name: 'department_id',
+            message: 'What is the department_id of the role',
+        }
+    ]).then((response) => {
+        dbConnection.addRole(response).then(() => {
+            console.log(`Added ${response.title}`)
+            loadQuestions()
+    })
+    })
+}
 
-    function addDepartment() {
-        // Ask for department name
-        // Run dbconnection.addDepartment
-        prompt([
-            {
-                name: 'name',
-                message: 'What is the name of the department',
-            }
-        ]).then((response) => {
-            dbConnection.addDepartment(response).then(() => {
-                console.log(`Added ${response.name}`)
-                loadQuestions()
-        })
-        })
-    }
+function addEmployee() {
+    prompt([
+        {
+            name: 'first_name',
+            message: 'What is the first name of the employee',
+        },
+        {
+            name: 'last_name',
+            message: 'What is the last name of the employee',
+        },
+        {
+            name: 'role_id',
+            message: 'What is the role_id of the emplyee',
+        },
+        {
+            name: 'manager_id',
+            message: 'What is the manager_id of the employee',
+        }
+    ]).then((response) => {
+        dbConnection.addEmployee(response).then(() => {
+            console.log(`Added ${response.first_name}`)
+            loadQuestions()
+    })
+    })
+}
 
-    function addRole() {
-        prompt([
-            {
-                name: 'title',
-                message: 'please provide a job title'
-            },
-            {
-                name: 'salary',
-                message: 'please provide an employee salary'
-            },
-            {
-                name: 'department_id',
-                message: 'please provide a department_id'
-            }
-        ]).then((response) => {
-            dbConnection.addRole(response).then(() => {
-                console.log(`Added ${response.title}`)
-                loadQuestions()
-            })
-        })
-    }
-
-    function addEmployee() {
-        prompt([
-            {
-                name: 'first_name',
-                message: 'please provide a employee first_name'
-            },
-            {
-                name: 'last_name',
-                message: 'please provide an employee last_name'
-            },
-            {
-                name: 'role_id',
-                message: 'please provide a role_id'
-            },
-            {
-                name: 'manager_id',
-                message: 'please provide a manager_id'
-            }
-        ]).then((response) => {
-            dbConnection.addEmployee(response).then(() => {
-                console.log(`Added ${response.first_name}`)
-                loadQuestions()
-            })
-        })
-    }
-
-    function quit() {
-        console.log('quit')
-    }
-    
-
-    
+function quit() {
+   console.log('Quit');
+}

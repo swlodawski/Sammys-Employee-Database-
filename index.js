@@ -61,19 +61,19 @@ function loadQuestions() {
             break;
 
             case 'add_department':
-            viewDepartments().then(loadQuestions);
+            viewDepartments();
             break;
 
             case 'add_role':
-            viewDepartments().then(loadQuestions);
+            viewDepartments();
             break;
 
             case 'add_employee':
-            viewDepartments().then(loadQuestions);
+            viewDepartments();
             break;
             
             case 'update_role':
-            viewDepartments().then(loadQuestions);
+            viewDepartments();
             break;
 
             case 'quit':
@@ -100,19 +100,22 @@ function loadQuestions() {
             console.table(result.rows)
         })
     }
+
     function addDepartment() {
+        // Ask for department name
+        // Run dbconnection.addDepartment
         prompt([
             {
                 name: 'name',
-                message: 'Create a new department',
+                message: 'What is the name of the department',
             }
-        ])
-        .then((response) => {
+        ]).then((response) => {
             dbConnection.addDepartment(response).then(() => {
                 console.log(`Added ${response.name}`)
-                loadQuestions
-            })
+                loadQuestions()
         })
+        })
+    }
 
     function addRole() {
         prompt([
@@ -129,7 +132,7 @@ function loadQuestions() {
                 message: 'please provide a department_id'
             }
         ]).then((response) => {
-            dbConnection.addRole(response).then((response) => {
+            dbConnection.addRole(response).then(() => {
                 console.log(`Added ${response.title}`)
                 loadQuestions()
             })
@@ -155,7 +158,7 @@ function loadQuestions() {
                 message: 'please provide a manager_id'
             }
         ]).then((response) => {
-            dbConnection.addEmployee(response).then((response) => {
+            dbConnection.addEmployee(response).then(() => {
                 console.log(`Added ${response.first_name}`)
                 loadQuestions()
             })
@@ -165,6 +168,6 @@ function loadQuestions() {
     function quit() {
         console.log('quit')
     }
-    }
+    
 
     

@@ -1,6 +1,8 @@
 const { prompt } = require('inquirer');
+// Pulled in inquirer prompt from npm.
 const dbConnection = require('./db/index.js');
-
+// Set path for db connection.
+// Function to prompt the different question options in application.
 function loadQuestions() {
     prompt([ 
     {
@@ -49,7 +51,7 @@ function loadQuestions() {
     console.log(responses);
     const choice = responses.choice;
     console.log(choice);
-
+// Switch case function to view different options in inquirer.
     switch(choice) {
         case 'view_departments':
         viewDepartments().then(loadQuestions);
@@ -88,25 +90,25 @@ function loadQuestions() {
 
 loadQuestions()
 
-// Functions
+// View Departments Function with db connection fetch.
 function viewDepartments() {
     return dbConnection.findAllDepartments().then((result) => {
         console.table(result.rows)
     })
 }
-
+// View Roles Function with db connection fetch.
 function viewRoles() {
     return dbConnection.findAllRoles().then((result) => {
         console.table(result.rows)
     })
 }
-
+// View Employees Function with db connection fetch.
 function viewEmployees() {
     return dbConnection.findAllEmployees().then((result) => {
         console.table(result.rows)
     })
 }
-
+// Add Department Function. Includes questions and promise.
 function addDepartment() {
     prompt([
         {
@@ -120,7 +122,7 @@ function addDepartment() {
     })
     })
 }
-
+// Add Role Function. Includes questions and promise.
 function addRole() {
 
     prompt([
@@ -143,7 +145,7 @@ function addRole() {
     })
     })
 }
-
+// Add Employee Function. Includes questions and promise.
 function addEmployee() {
     prompt([
         {
